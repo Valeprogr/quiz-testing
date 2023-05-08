@@ -1,29 +1,133 @@
 import { useState } from 'react';
 import img from "./quiz.jpeg";
+import QuestionCard from './components/QuestionCard';
+import data from "./data/data.json";
+import { shuffleArray } from "./utils";
 
 
+export type Question = {
+  question: string;
+  correct_answer: string;
+  answers: string[];
+}
+export type AnswerObject = {
+  question: string;
+  answer: string;
+  correct: boolean;
+  correctAnswer: string;
+
+}
+const TOTAL_QUESTIONS = 3;
 function App() {
-  const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [number, setNumber] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(true);
+
+  // console.log(questions.results)
+
+  const startGame = () => {
+    setLoading(true);
+    setGameOver(false);
+    setQuestions(data.results);
+    setScore(0);
+    setUserAnswers([]);
+    setNumber(0);
+    setLoading(false);
+  };
+
+  const checkAnswer = (e:any) => { 
+    if (!gameOver) {
+      //User Answer
+      const answer = e.currentTarget.value;
+      console.log(answer)
+      //Check answer with correctAnswer
+      const correct = questions[number].correct_answer === answer;
+      //If answer is correct add score
+      if (correct) setScore((prev) => prev + 1);
+      console.log(score)
+      //Save answer in  the array for user answer
+      const answerObject = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer: questions[number].correct_answer,
+      };
+      setUserAnswers((prev) => [...prev, answerObject]);
+    }
+  };
+  
+  const nextQuestion = () => {
+    //Next Question
+    const nextQ = number + 1;
+
+    if (nextQ === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQ);
+    }
+  };
+
 
   return (
     <div className='flex flex-col items-center px-12 md:px-0 justify-center h-screen bg-indigo-950 text-white text-lg'>
-      <h1 className='text-pink-500 font-medium text-4xl'>Quiz!</h1>
-      <div className='flex h-44 w-44 mt-8 mb-5 rounded-full overflow-hidden'>
-      <img className='' src={img} alt='quiz'/>
-      </div>
-      <p className='mb-4'>Per grandi e piccini</p>
-      <div className='mb-4 border-b border-t border-pink-200'>
-        <h2 className='text-pink-200 font-semibold uppercase text-xl'>QUIZ CULTURA GENERALE</h2>
-      </div>
-      <div className='text-center'>
-      <p>12 Domande di Cultura Generale con Risposte</p>
-      <p>Mettiti alla prova</p>
-      </div>
+      
+      <div className='flex flex-col items-center'>
+        {gameOver ?
+          <>
+        <h1 className='text-pink-500 font-medium text-4xl'>Quiz!</h1>
+        <div className='flex h-32 w-32 mt-8 mb-5 rounded-full overflow-hidden'>
+        <img className='' src={img} alt='quiz' />
+        </div>
+        <p className='mb-4'>Quiz a risposta multipla di</p>
+        <div className='mb-4 border-b border-t border-pink-200'>
+        <h2 className='text-pink-200 font-semibold uppercase text-xl'>CULTURA GENERALE</h2>
+        </div>
+        <div className='mt-2 text-center'>
+              <p>Metti alla prova la tue conoscenze, seleziona la tua risposta e clicca sul tasto next per passare alla prossima domanda.
+              Ad ogni risposta corretta verra assegnato un punto.
+              </p>
+              
+        </div>
+          </>
+          :
+          <>
+          {!gameOver ?<p className='text-4xl pb-12'>Score:{score}</p>:null}
+      {loading? <p>Loading Questions...</p>: null}
+      {!loading && !gameOver &&(
+        <>
+          <QuestionCard
+            questionNr={number + 1}
+            totalQuestions={TOTAL_QUESTIONS}
+            question={questions[number].question}
+            answers={questions[number].answers}
+            userAnswer={userAnswers ? userAnswers[number] : undefined}
+            callback={checkAnswer}
+          />
+        </>
+      )}
+      {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
+        (<button className='h-12 w-32 rounded-lg bg-pink-500 text-white hover:bg-transparent hover:h-14 hover:text-2xl hover:border-2  hover:border-pink-500  font-semibold uppercase' onClick={nextQuestion}>Next</button>)
+        :
+        null}
+          </>
+          }
+        {gameOver || userAnswers.length === TOTAL_QUESTIONS ?
+          <>
+          <div className='mt-8'>
+            <button className='h-12 w-32 rounded-lg bg-pink-500 text-white hover:bg-transparent hover:h-14 hover:text-2xl hover:border-2  hover:border-pink-500  font-semibold uppercase' onClick={startGame}>START</button>
+          </div>
+            <p className='mt-4 italic text-xs md:text-sm'>*copyright Valentina Vittoria 2023  &copy;</p>
+        </>
+        :
+        null
+        }
+        </div>
+  
+      
 
-      <div className='mt-8'>
-            <button className='h-12 w-32 rounded-lg bg-pink-500 text-white hover:bg-transparent hover:h-14 hover:text-2xl hover:border-2  hover:border-pink-500  font-semibold uppercase'>START</button>  
-      </div>
-      <p className='mt-4 italic text-xs md:text-sm'>*Clicca sulla risposta corretta</p>
     </div>
   )
 }

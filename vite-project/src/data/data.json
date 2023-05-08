@@ -1,0 +1,34 @@
+{
+    "results":[
+        {
+            "question":"Qual e la montagna piu alta del mondo?",
+            "correct_answer":"Monte Everest",
+            "answers":[
+                "Monte bianco",
+                "Kilimangiaro",
+                "Aconcagua",
+                "Monte Everest"
+            ]
+        },
+        {
+            "question":"Quale paese ha vinto piu campionati mondiali di calcio?",
+            "correct_answer":"Brasile",
+            "answers":[
+                "Argentina",
+                "Germania",
+                "Brasile",
+                "Italia"
+            ]   
+        },
+        {
+            "question":"Quanto dura il mandato del Presidente della Repubblica Italiana?",
+            "correct_answer":"7 anni",
+            "answers":[
+                "7 anni",
+                "4 anni",
+                "6 anni",
+                "5 anni"
+            ]
+        }
+    ]
+}
