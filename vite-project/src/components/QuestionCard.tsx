@@ -8,6 +8,7 @@ type Props = {
     userAnswer: AnswerObject | undefined;
     questionNr: number;
     totalQuestions: number;
+    style: string;
 
 }
 const QuestionCard: React.FC<Props> = ({
@@ -16,22 +17,34 @@ const QuestionCard: React.FC<Props> = ({
     callback,
     userAnswer,
     questionNr,
-    totalQuestions
+    totalQuestions,
+    style,
+
 }) => {
+    
+
+   
+
+    
+  
+    
+    
+
     return (
-        <div className="text-center">
-            <p>
+        <div className="text-center ">
+            <p className="mb-6">
                 Question: {questionNr}/{totalQuestions}
             </p>
-            <p dangerouslySetInnerHTML={{ __html: question }} />
+            <p className="mb-4 border-b border-t border-pink-200 text-pink-200 font-semibold  uppercase  text-xl" dangerouslySetInnerHTML={{ __html: question }} />
             <div className="my-4 flex flex-col">
                 {answers.map((answer) => (
-                        <button className="cursor-pointer p-2 border-2 border-white rounded-md my-2" disabled={userAnswer ? true : false} value={answer} onClick={callback} key={answer}>
+                    <button className={`${style}`} disabled={userAnswer ? true : false} value={answer} onClick={callback} key={answer}>
                         <span dangerouslySetInnerHTML={{__html: answer}} />
-                        </button>
+                    </button>
                         
                 ))}
             </div>
+            <p className='mt-4 italic text-xs md:text-sm'>*seleziona la risposta e clicca il bottone 'next' per passare alla domanda successiva.</p>
         </div>
     )
 }

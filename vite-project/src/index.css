@@ -8,3 +8,19 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+.btn{
+  @apply h-12 w-32 rounded-lg bg-pink-500 text-white hover:bg-transparent  hover:border-2  hover:border-pink-500  font-semibold uppercase cursor-pointer tracking-wider hover:shadow-inner transform hover:scale-105 hover:bg-opacity-50 transition ease-out duration-300;
+}
+
+.answers{
+  @apply cursor-pointer p-2 border-2 border-white rounded-md my-2 hover:border-pink-500 hover:shadow-inner transform hover:scale-105 hover:bg-opacity-50 transition ease-out duration-300;
+}
+
+.correct{
+  @apply bg-green-600;
+}
+
+.incorrect{
+  @apply bg-red-600;
+}

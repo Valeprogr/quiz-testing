@@ -15,6 +15,7 @@ export type AnswerObject = {
   answer: string;
   correct: boolean;
   correctAnswer: string;
+  style: string;
 
 }
 const TOTAL_QUESTIONS = 3;
@@ -25,6 +26,8 @@ function App() {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
+  const [style, setStyle] = useState('answers');
+
 
   // console.log(questions.results)
 
@@ -46,15 +49,29 @@ function App() {
       //Check answer with correctAnswer
       const correct = questions[number].correct_answer === answer;
       //If answer is correct add score
-      if (correct) setScore((prev) => prev + 1);
+      if (correct) {
+        setStyle('answers correct');
+        setScore((prev) => prev + 1);
+        setTimeout(() => setStyle('answers'), 1000);
+      } else if(!correct) {
+        setStyle('answers incorrect');
+        setTimeout(() => setStyle('answers'), 1000);
+      } else {
+        setStyle('answers')
+      }
+
       console.log(score)
       //Save answer in  the array for user answer
+
       const answerObject = {
         question: questions[number].question,
         answer,
         correct,
         correctAnswer: questions[number].correct_answer,
+        style,
       };
+      
+
       setUserAnswers((prev) => [...prev, answerObject]);
     }
   };
@@ -72,7 +89,7 @@ function App() {
 
 
   return (
-    <div className='flex flex-col items-center px-12 md:px-0 justify-center h-screen bg-indigo-950 text-white text-lg'>
+    <div className='flex flex-col items-center px-12  justify-center h-screen bg-indigo-950 text-white text-lg'>
       
       <div className='flex flex-col items-center'>
         {gameOver ?
@@ -86,7 +103,7 @@ function App() {
         <h2 className='text-pink-200 font-semibold uppercase text-xl'>CULTURA GENERALE</h2>
         </div>
         <div className='mt-2 text-center'>
-              <p>Metti alla prova la tue conoscenze, seleziona la tua risposta e clicca sul tasto next per passare alla prossima domanda.
+              <p>Metti alla prova la tue conoscenze, seleziona la risposta e clicca sul tasto next per passare alla prossima domanda.
               Ad ogni risposta corretta verra assegnato un punto.
               </p>
               
@@ -94,7 +111,14 @@ function App() {
           </>
           :
           <>
-          {!gameOver ?<p className='text-4xl pb-12'>Score:{score}</p>:null}
+            {!gameOver ?
+              <div className='flex mb-6'>
+                <div><p className='text-4xl pr-2'>Score:</p></div>
+                <div><p className='text-4xl text-pink-500'>{score}</p></div>
+               
+                
+              </div>
+              : null}
       {loading? <p>Loading Questions...</p>: null}
       {!loading && !gameOver &&(
         <>
@@ -105,11 +129,12 @@ function App() {
             answers={questions[number].answers}
             userAnswer={userAnswers ? userAnswers[number] : undefined}
             callback={checkAnswer}
+            style={style}
           />
         </>
       )}
       {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
-        (<button className='h-12 w-32 rounded-lg bg-pink-500 text-white hover:bg-transparent hover:h-14 hover:text-2xl hover:border-2  hover:border-pink-500  font-semibold uppercase' onClick={nextQuestion}>Next</button>)
+        (<button className='btn' onClick={nextQuestion}>Next</button>)
         :
         null}
           </>
@@ -117,9 +142,9 @@ function App() {
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ?
           <>
           <div className='mt-8'>
-            <button className='h-12 w-32 rounded-lg bg-pink-500 text-white hover:bg-transparent hover:h-14 hover:text-2xl hover:border-2  hover:border-pink-500  font-semibold uppercase' onClick={startGame}>START</button>
+            <button className='btn' onClick={startGame}>START</button>
           </div>
-            <p className='mt-4 italic text-xs md:text-sm'>*copyright Valentina Vittoria 2023  &copy;</p>
+            <p className='mt-4  text-sm'>copyright Valentina Vittoria 2023  &copy;</p>
         </>
         :
         null
