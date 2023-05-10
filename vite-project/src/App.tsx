@@ -2,7 +2,6 @@ import { useState } from 'react';
 import img from "./quiz.jpeg";
 import QuestionCard from './components/QuestionCard';
 import data from "./data/data.json";
-import { shuffleArray } from "./utils";
 
 
 export type Question = {
@@ -15,10 +14,8 @@ export type AnswerObject = {
   answer: string;
   correct: boolean;
   correctAnswer: string;
-  style: string;
-
 }
-const TOTAL_QUESTIONS = 3;
+const TOTAL_QUESTIONS = 12;
 function App() {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -26,7 +23,7 @@ function App() {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
-  const [style, setStyle] = useState('answers');
+
 
 
   // console.log(questions.results)
@@ -50,14 +47,7 @@ function App() {
       const correct = questions[number].correct_answer === answer;
       //If answer is correct add score
       if (correct) {
-        setStyle('answers correct');
         setScore((prev) => prev + 1);
-        setTimeout(() => setStyle('answers'), 1000);
-      } else if(!correct) {
-        setStyle('answers incorrect');
-        setTimeout(() => setStyle('answers'), 1000);
-      } else {
-        setStyle('answers')
       }
 
       console.log(score)
@@ -68,7 +58,7 @@ function App() {
         answer,
         correct,
         correctAnswer: questions[number].correct_answer,
-        style,
+        
       };
       
 
@@ -88,13 +78,14 @@ function App() {
   };
 
 
+
   return (
-    <div className='flex flex-col items-center px-12  justify-center h-screen bg-indigo-950 text-white text-lg'>
+    <div className='flex flex-col items-center px-12  justify-center w-auto h-screen bg-indigo-950 text-white text-lg'>
       
       <div className='flex flex-col items-center'>
         {gameOver ?
           <>
-        <h1 className='text-pink-500 font-medium text-4xl'>Quiz!</h1>
+        <h1 className='text-pink-500 font-medium text-5xl'>Q: uiz!</h1>
         <div className='flex h-32 w-32 mt-8 mb-5 rounded-full overflow-hidden'>
         <img className='' src={img} alt='quiz' />
         </div>
@@ -112,9 +103,9 @@ function App() {
           :
           <>
             {!gameOver ?
-              <div className='flex mb-6'>
-                <div><p className='text-4xl pr-2'>Score:</p></div>
-                <div><p className='text-4xl text-pink-500'>{score}</p></div>
+              <div className='flex mb-3'>
+                <div className='text-4xl pr-2'><p>Scoring:</p></div>
+                <div className='text-4xl text-pink-500'><p>{score}</p></div>
                
                 
               </div>
@@ -129,7 +120,6 @@ function App() {
             answers={questions[number].answers}
             userAnswer={userAnswers ? userAnswers[number] : undefined}
             callback={checkAnswer}
-            style={style}
           />
         </>
       )}

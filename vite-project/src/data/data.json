@@ -29,6 +29,96 @@
                 "6 anni",
                 "5 anni"
             ]
+        },
+        {
+            "question":"Chi ha inventato la radio?",
+            "correct_answer":"Guglielmo Marconi",
+            "answers":[
+                "Nikola Tesla",
+                "Antonio Meucci",
+                "Alexander Graham Bell",
+                "Guglielmo Marconi"
+            ]
+        },
+        {
+            "question":"Chi è, nella religione greca, il dio del sole?",
+            "correct_answer":"Apollo",
+            "answers":[
+                "Zeus",
+                "Efesto",
+                "Eos",
+                "Apollo"
+            ]
+        },
+        {
+            "question":"Chi è l'artista più premiato al mondo?",
+            "correct_answer":"Michael Jackson",
+            "answers":[
+                "Michael Jackson",
+                "U2",
+                "Aretha Franklin",
+                "Beyoncé"
+            ]
+        },
+        {
+            "question":"Quale artista ha dipinto il soffitto della Cappella Sistina a Roma?",
+            "correct_answer":"Michelangelo",
+            "answers":[
+                "Sandro Botticelli",
+                "Pietro Perugino",
+                "Michelangelo",
+                "Pinturicchio"
+            ]
+        },
+        {
+            "question":"Quando fu pubblicato il primo numero di Vogue?",
+            "correct_answer":"1892",
+            "answers":[
+                "1942",
+                "1892",
+                "2000",
+                "1960"
+            ]
+        },
+        {
+            "question":"Qual è la serie più vista in assoluto su Netflix?",
+            "correct_answer":"Stranger Things",
+            "answers":[
+                "Wednesday",
+                "Squid Game",
+                "Stranger Things",
+                "DAHMER"
+            ]
+        },
+        {
+            "question":"Come si chiama l'unità di misura con la quale viene misurata l'intensità della corrente elettrica? ",
+            "correct_answer":"Ampere",
+            "answers":[
+                "Decibel",
+                "Ampere",
+                "Joule",
+                "Volt"
+            ]
+        },
+        {
+            "question":"Chi ha scritto \"La Repubblica\"?",
+            "correct_answer":"Platone",
+            "answers":[
+                "Seneca",
+                "Marco Aurelio",
+                "Niccolò Machiavelli",
+                "Platone"
+            ]
+        },
+        {
+            "question":"Qual è stato il primo film horror a colori?",
+            "correct_answer":"La maledizione di Frankenstein",
+            "answers":[
+                "Casa del diavolo",
+                "Rosemary's Baby ",
+                "L'esorcista",
+                "La maledizione di Frankenstein"
+            ]
         }
     ]
 }

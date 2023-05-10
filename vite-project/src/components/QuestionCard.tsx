@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { AnswerObject } from "../App";
 
 type Props = {
@@ -8,8 +8,6 @@ type Props = {
     userAnswer: AnswerObject | undefined;
     questionNr: number;
     totalQuestions: number;
-    style: string;
-
 }
 const QuestionCard: React.FC<Props> = ({
     question,
@@ -18,16 +16,7 @@ const QuestionCard: React.FC<Props> = ({
     userAnswer,
     questionNr,
     totalQuestions,
-    style,
-
 }) => {
-    
-
-   
-
-    
-  
-    
     
 
     return (
@@ -38,13 +27,13 @@ const QuestionCard: React.FC<Props> = ({
             <p className="mb-4 border-b border-t border-pink-200 text-pink-200 font-semibold  uppercase  text-xl" dangerouslySetInnerHTML={{ __html: question }} />
             <div className="my-4 flex flex-col">
                 {answers.map((answer) => (
-                    <button className={`${style}`} disabled={userAnswer ? true : false} value={answer} onClick={callback} key={answer}>
+                    <button className={`answers ${answer === userAnswer?.correctAnswer ? "correct" : !answer === userAnswer?.correct ? "incorrect": ""} ` } disabled={userAnswer ? true : false} value={answer} onClick={callback} key={answer}>
                         <span dangerouslySetInnerHTML={{__html: answer}} />
                     </button>
                         
                 ))}
             </div>
-            <p className='mt-4 italic text-xs md:text-sm'>*seleziona la risposta e clicca il bottone 'next' per passare alla domanda successiva.</p>
+            <p className='mt-4 italic text-xs md:text-sm'>*seleziona la risposta corretta e successivamente clicca il bottone 'next' per passare alla prossima domanda.</p>
         </div>
     )
 }
