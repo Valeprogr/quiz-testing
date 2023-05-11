@@ -80,9 +80,8 @@ function App() {
 
 
   return (
-    <div className='flex flex-col items-center px-12  justify-center w-auto h-screen bg-indigo-950 text-white text-lg'>
-      
-      <div className='flex flex-col items-center'>
+    <div className='flex flex-col justify-between items-center  min-h-screen  px-12 w-auto  bg-indigo-950 text-white text-lg'>
+      <div className='flex flex-col items-center pt-40 '>
         {gameOver ?
           <>
         <h1 className='text-pink-500 font-medium text-5xl'>Q: uiz!</h1>
@@ -134,15 +133,14 @@ function App() {
           <div className='mt-8'>
             <button className='btn' onClick={startGame}>START</button>
           </div>
-            <p className='mt-4  text-sm'>copyright Valentina Vittoria 2023  &copy;</p>
         </>
         :
         null
         }
+        <div className='mt-6 pb-8 md:pb-2'>
+        <p className='text-sm'>copyright Valentina Vittoria 2023  &copy;</p>
         </div>
-  
-      
-
+        </div>
     </div>
   )
 }
