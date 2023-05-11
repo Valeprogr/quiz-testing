@@ -124,7 +124,7 @@ function App() {
         </>
       )}
       {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
-        (<button className='btn' onClick={nextQuestion}>Next</button>)
+        (<button className='btn mt-4' onClick={nextQuestion}>Next</button>)
         :
         null}
           </>

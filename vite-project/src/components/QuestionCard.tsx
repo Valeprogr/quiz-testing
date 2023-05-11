@@ -20,9 +20,9 @@ const QuestionCard: React.FC<Props> = ({
     
 
     return (
-        <div className="text-center ">
-            <p className="mb-6">
-                Question: {questionNr}/{totalQuestions}
+        <div className="text-center mt-2">
+            <p className="mb-6 border rounded bg-pink-500 font-semibold">
+                <span className="text-xl">Question: {questionNr}</span>/{totalQuestions}
             </p>
             <p className="mb-4 border-b border-t border-pink-200 text-pink-200 font-semibold  uppercase  text-xl" dangerouslySetInnerHTML={{ __html: question }} />
             <div className="my-4 flex flex-col">
