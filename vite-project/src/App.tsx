@@ -81,10 +81,10 @@ function App() {
 
   return (
     <div className='flex flex-col justify-between items-center  min-h-screen  px-12 w-auto  bg-indigo-950 text-white text-lg'>
-      <div className='flex flex-col items-center pt-16 md:pt-32 '>
+      <div className='flex flex-col items-center pt-4 md:pt-32 '>
         {gameOver ?
           <>
-        <h1 className='text-pink-500 font-medium text-5xl'>Q: uiz!</h1>
+        <h1 className='text-pink-500 font-medium text-5xl pt-4'>Q: uiz!</h1>
         <div className='flex h-32 w-32 mt-8 mb-5 rounded-full overflow-hidden'>
         <img className='' src={img} alt='quiz' />
         </div>
@@ -102,7 +102,7 @@ function App() {
           :
           <>
             {!gameOver ?
-              <div className='flex mb-3'>
+              <div className='flex mb-3 pt-10'>
                 <div className='text-4xl pr-2'><p>Scoring:</p></div>
                 <div className='text-4xl text-pink-500'><p>{score}</p></div>
                
