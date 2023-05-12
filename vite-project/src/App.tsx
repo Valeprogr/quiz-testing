@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div className='flex flex-col justify-between items-center  min-h-screen  px-12 w-auto  bg-indigo-950 text-white text-lg'>
-      <div className='flex flex-col items-center pt-20 md:pt-32 '>
+      <div className='flex flex-col items-center pt-16 md:pt-32 '>
         {gameOver ?
           <>
         <h1 className='text-pink-500 font-medium text-5xl'>Q: uiz!</h1>
