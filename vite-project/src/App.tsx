@@ -2,19 +2,10 @@ import { useState } from 'react';
 import img from "./quiz.jpeg";
 import QuestionCard from './components/QuestionCard';
 import data from "./data/data.json";
+import { AnswerObject } from './types/AnswerObject';
+import { Question } from './types/Question';
+import Results from './components/Results';
 
-
-export type Question = {
-  question: string;
-  correct_answer: string;
-  answers: string[];
-}
-export type AnswerObject = {
-  question: string;
-  answer: string;
-  correct: boolean;
-  correctAnswer: string;
-}
 const TOTAL_QUESTIONS = 12;
 function App() {
   const [loading, setLoading] = useState(false);
@@ -24,9 +15,6 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
-
-
-  // console.log(questions.results)
 
   const startGame = () => {
     setLoading(true);
@@ -42,17 +30,13 @@ function App() {
     if (!gameOver) {
       //User Answer
       const answer = e.currentTarget.value;
-      console.log(answer)
       //Check answer with correctAnswer
       const correct = questions[number].correct_answer === answer;
       //If answer is correct add score
       if (correct) {
         setScore((prev) => prev + 1);
       }
-
-      console.log(score)
       //Save answer in  the array for user answer
-
       const answerObject = {
         question: questions[number].question,
         answer,
@@ -60,8 +44,6 @@ function App() {
         correctAnswer: questions[number].correct_answer,
         
       };
-      
-
       setUserAnswers((prev) => [...prev, answerObject]);
     }
   };
@@ -69,7 +51,6 @@ function App() {
   const nextQuestion = () => {
     //Next Question
     const nextQ = number + 1;
-
     if (nextQ === TOTAL_QUESTIONS) {
       setGameOver(true);
     } else {
@@ -80,8 +61,8 @@ function App() {
 
 
   return (
-    <div className='flex flex-col justify-between items-center  min-h-screen  px-12 w-auto  bg-indigo-950 text-white text-lg'>
-      <div className='flex flex-col items-center pt-4 md:pt-32 '>
+    <div className='flex flex-col justify-between items-center  min-h-screen px-12 w-auto  bg-indigo-950 text-white text-lg'>
+      <div className='flex flex-col  items-center pt-4 md:pt-32 '>
         {gameOver ?
           <>
         <h1 className='text-pink-500 font-medium text-5xl pt-4'>Q: uiz!</h1>
@@ -105,43 +86,44 @@ function App() {
               <div className='flex mb-3 pt-10'>
                 <div className='text-4xl pr-2'><p>Scoring:</p></div>
                 <div className='text-4xl text-pink-500'><p>{score}</p></div>
-               
-                
               </div>
               : null}
-      {loading? <p>Loading Questions...</p>: null}
-      {!loading && !gameOver &&(
-        <>
-          <QuestionCard
-            questionNr={number + 1}
-            totalQuestions={TOTAL_QUESTIONS}
-            question={questions[number].question}
-            answers={questions[number].answers}
-            userAnswer={userAnswers ? userAnswers[number] : undefined}
-            callback={checkAnswer}
-          />
-        </>
-      )}
-      {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
-        (<button className='btn mt-4' onClick={nextQuestion}>Next</button>)
-        :
-        null}
-          </>
-          }
-        {gameOver || userAnswers.length === TOTAL_QUESTIONS ?
-          <>
-          <div className='mt-8'>
-            <button className='btn' onClick={startGame}>START</button>
-          </div>
-        </>
-        :
-        null
-        }
-        <div className='mt-6 pb-8 md:pb-2'>
-        <p className='text-sm'>copyright Valentina Vittoria 2023  &copy;</p>
-        </div>
-        </div>
-    </div>
+              {loading? <p>Loading Questions...</p>: null}
+              {!gameOver && userAnswers.length  != TOTAL_QUESTIONS  ?
+       
+              <QuestionCard
+                questionNr={number + 1}
+                totalQuestions={TOTAL_QUESTIONS}
+                question={questions[number].question}
+                answers={questions[number].answers}
+                userAnswer={userAnswers ? userAnswers[number] : undefined}
+                callback={checkAnswer}
+              />
+              :
+              <>
+                <Results props={userAnswers} />
+              </>
+              }
+                {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
+                  (<button className='btn mt-4' onClick={nextQuestion}>Next</button>)
+                  :
+                  null}
+                    </>
+                    }
+                {gameOver || userAnswers.length === TOTAL_QUESTIONS ?
+                  <>
+                  <div className='mt-8'>
+                  <button className='btn' onClick={startGame}>START</button>
+                  </div>
+                  </>
+                  :
+                  null
+                }
+                <div className='mt-6 pb-8 md:pb-2'>
+                <p className='text-sm'>&copy; Copyright Q: uiz 2023 </p>
+                </div>
+                </div>
+                </div>
   )
 }
 
