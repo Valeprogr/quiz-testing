@@ -18,7 +18,7 @@ const Results = (props: any) => {
                                 return (
                                     <tr className='cursor-pointer border-b border-gray-200' key={index}>
                                     <td  className="px-2 py-4 border-r">{ele.question }</td>
-                                    <td  className="px-2 py-4 border-r">{ele.answer}</td>
+                                    <td  className="px-2 py-4 border-r">{ele.correctAnswer}</td>
                                     {ele.correct === true ?
                                         <td  className="px-auto py-4 pl-2">✅</td>
                                         :
